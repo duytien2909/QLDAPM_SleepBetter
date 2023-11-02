@@ -1,5 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import AdviceItem from "../../components/AdviceItem";
+// import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
+// import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
 //TODO: Replace this later
 const SAMPLE_ADVICES = [
@@ -13,7 +15,12 @@ const AdvicesScreen = () => {
   return (
     <View style={styles.container}>
       {/* TODO: Replace this as main navbar later since we didn't sync screens yet */}
-      <Text style={styles.navbar}>Navigation bar</Text>
+      {/* <View style={styles.row}>
+        <a style={styles.homeIconContainer} href="/">
+          <FontAwesomeIcon style={styles.homeIcon} icon={faHouse} />
+        </a>
+        <Text style={styles.text}>Back</Text>
+      </View> */}
       <Text style={styles.title}>Advices</Text>
       <View style={styles.adviceContainer}>
         {SAMPLE_ADVICES.map((advice, index) => (
@@ -32,8 +39,8 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: "#fff",
     paddingHorizontal: "0.625rem",
-    backgroundColor: "#2b4162",
-    backgroundImage: "linear-gradient(315deg, #2b4162 0%, #12100e 74%)",
+    // backgroundColor: "#2b4162",
+    // backgroundImage: "linear-gradient(315deg, #2b4162 0%, #12100e 74%)",
   },
   title: {
     fontSize: "2.5rem",
@@ -41,7 +48,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: "1rem",
     fontWeight: "600",
-    color: "white",
   },
   adviceContainer: {
     marginTop: "1.5rem",

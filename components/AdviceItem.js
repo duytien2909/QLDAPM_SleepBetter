@@ -24,13 +24,14 @@ const AdviceItem = ({ title }) => {
 const styles = StyleSheet.create({
   container: {
     padding: "1rem",
-    backgroundColor: "#5078f2",
-    backgroundImage: "linear-gradient(315deg, #5078f2 0%, #efe9f4 74%)",
+    // backgroundColor: "#5078f2",
+    // backgroundImage: "linear-gradient(315deg, #5078f2 0%, #efe9f4 74%)",
     borderRadius: "0.5rem",
     shadowOffset: {
-      height: "0.125rem",
-      width: "0.125rem",
+      height: "0.25rem",
+      width: "0.25rem",
     },
+    borderWidth: 1,
   },
   adviceTitle: {
     fontSize: "1.25rem",
