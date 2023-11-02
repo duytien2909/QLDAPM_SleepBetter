@@ -33,26 +33,26 @@ const AdvicesScreen = () => {
 
 const styles = StyleSheet.create({
   navbar: {
-    height: "3rem",
+    height: 48,
   },
   container: {
     flex: 1,
     backgroundColor: "#fff",
-    paddingHorizontal: "0.625rem",
+    paddingHorizontal: 10,
     // backgroundColor: "#2b4162",
     // backgroundImage: "linear-gradient(315deg, #2b4162 0%, #12100e 74%)",
   },
   title: {
-    fontSize: "2.5rem",
+    fontSize: 40,
     width: "100%",
     textAlign: "center",
-    marginTop: "1rem",
+    marginTop: 60,
     fontWeight: "600",
   },
   adviceContainer: {
-    marginTop: "1.5rem",
+    marginTop: 24,
     display: "flex",
-    gap: "0.75rem",
+    gap: 12,
   },
 });
 

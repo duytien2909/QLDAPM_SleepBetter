@@ -23,23 +23,27 @@ const AdviceItem = ({ title }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: "1rem",
-    // backgroundColor: "#5078f2",
+    padding: 16,
+    backgroundColor: "#ffffff",
     // backgroundImage: "linear-gradient(315deg, #5078f2 0%, #efe9f4 74%)",
-    borderRadius: "0.5rem",
+    borderRadius: 8,
+    elevation: 3,
+    shadowRadius: 8,
+    shadowOpacity: 1.5,
+    shadowColor: "#000000",
     shadowOffset: {
-      height: "0.25rem",
-      width: "0.25rem",
+      height: 4,
+      width: 4,
     },
     borderWidth: 1,
   },
   adviceTitle: {
-    fontSize: "1.25rem",
+    fontSize: 20,
     fontWeight: "500",
   },
   adviceContent: {
-    marginTop: "0.625rem",
-    fontSize: "1rem",
+    marginTop: 10,
+    fontSize: 16,
   },
 });
 
