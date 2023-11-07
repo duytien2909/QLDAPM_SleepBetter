@@ -1,8 +1,8 @@
-import ExampleScreen from "./src/screens/ExampleScreen";
-import ErrorBoundary from "./src/containers/ErrorBoundary";
 import { NativeBaseProvider } from "native-base";
-import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { NavigationContainer } from "@react-navigation/native";
+import ErrorBoundary from "./src/containers/ErrorBoundary";
+import ExampleScreen from "./src/screens/ExampleScreen";
 
 const Stack = createNativeStackNavigator();
 
