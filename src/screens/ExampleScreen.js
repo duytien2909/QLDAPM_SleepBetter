@@ -1,21 +1,12 @@
-import { StyleSheet, Text, View } from "react-native";
+import { Text, Container } from "native-base";
 
 const ExampleScreen = () => {
   return (
-    <View style={styles.container}>
+    <Container>
       <Text>Hello World!</Text>
       <Text>This is the ExampleScreen</Text>
-    </View>
+    </Container>
   );
 };
-
-const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
 
 export default ExampleScreen;
