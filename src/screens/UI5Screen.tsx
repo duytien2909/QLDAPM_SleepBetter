@@ -21,8 +21,8 @@ const UI5Screen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <a style={styles.homeIconContainer} href='/'>
-          <FontAwesomeIcon style={styles.homeIcon} icon={faHouse} />
+        <a style={styles.homeIconContainer} href="/">
+          <FontAwesomeIcon icon={faHouse} />
         </a>
         <Text style={styles.text}>Back</Text>
       </View>
@@ -76,51 +76,49 @@ const styles = StyleSheet.create({
     padding: 0,
     boxSizing: "border-box",
     fontFamily: "Roboto, sans-serif",
-    fontSize: "28px",
+    fontSize: 28,
   },
   row: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "flex-start",
     alignItems: "center",
-    fontSize: "28px",
-    marginTop: "1em",
-    paddingLeft: "20px",
+    fontSize: 28,
+    marginTop: 16,
+    paddingLeft: 20,
   },
   iconContainer: {
-    padding: "12px",
-    marginRight: "15px",
-    borderRadius: "50%",
+    padding: 12,
+    marginRight: 15,
+    borderRadius: 100,
     backgroundColor: "rgb(228,230,235)",
   },
   homeIconContainer: {
-    paddingTop: "6px",
-    paddingBottom: "6px",
-    paddingRight: "12px",
-    paddingLeft: "12px",
-    marginRight: "15px",
-    borderRadius: "50%",
+    paddingTop: 6,
+    paddingBottom: 6,
+    paddingRight: 12,
+    paddingLeft: 12,
+    marginRight: 15,
+    borderRadius: 100,
     backgroundColor: "rgb(228,230,235)",
   },
   defaultIcon: {
     color: "rgb(28,30,33)",
-    outline: "none",
   },
   onMicIcon: {
     color: "#08A045",
-    outline: "none",
   },
   text: {
-    fontSize: "18px",
+    fontSize: 18,
   },
   timestamp: {
-    padding: "4px",
+    padding: 4,
     backgroundColor: "#04AA6D",
     color: "#fff",
-    borderRadius: "4px",
-    marginTop: "5px",
-    marginBottom: "20px",
-    fontSize: "18px",
+    borderRadius: 4,
+    marginTop: 5,
+    marginBottom: 20,
+    fontSize: 18,
   },
 });
 
