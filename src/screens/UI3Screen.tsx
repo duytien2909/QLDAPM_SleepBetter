@@ -10,9 +10,9 @@ import {
 import { Ionicons } from "@expo/vector-icons";
 
 const UI3Screen = () => {
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [selectedAnswer, setSelectedAnswer] = useState<number>(0);
 
-  const handleAnswerButton = (answerId) => {
+  const handleAnswerButton = (answerId: number) => {
     setSelectedAnswer(answerId);
   };
 
@@ -33,15 +33,12 @@ const UI3Screen = () => {
 
   return (
     <View style={styles.page}>
-          <TouchableOpacity
-            onPress={handleBackButton}
-            style={styles.backButton}
-          >
-            <Ionicons name="arrow-back" size={24} color="white" />
-          </TouchableOpacity>
+      <TouchableOpacity onPress={handleBackButton} style={styles.backButton}>
+        <Ionicons name="arrow-back" size={24} color="white" />
+      </TouchableOpacity>
       <View style={styles.container}>
         <View style={styles.appBar}>
-          <Text style={styles.title}>App Title</Text>
+          <Text>App Title</Text>
         </View>
         <View style={styles.question_container}>
           <Image
@@ -78,23 +75,23 @@ const UI3Screen = () => {
 const styles = StyleSheet.create({
   page: {
     flex: 1,
-    backgroundColor: 'black'
+    backgroundColor: "black",
   },
   container: {
     backgroundColor: "black",
     width: "100%",
     height: "100%",
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   appBar: {
     flexDirection: "row",
     alignItems: "center",
-    color: 'white'
+    color: "white",
   },
   backButton: {
     marginRight: 10,
-    color: 'white',
+    color: "white",
   },
   question: {
     color: "white",
