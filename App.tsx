@@ -1,27 +1,25 @@
+import "react-native-gesture-handler";
+
 import { NativeBaseProvider } from "native-base";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { NavigationContainer } from "@react-navigation/native";
 import ErrorBoundary from "./src/containers/ErrorBoundary";
 import ExampleScreen from "./src/screens/ExampleScreen";
+import { createDrawerNavigator } from "@react-navigation/drawer";
+import AdvicesScreen from "./src/screens/AdvicesScreen";
 
-const Stack = createNativeStackNavigator();
+const Drawer = createDrawerNavigator();
 
 export default function App() {
   return (
-    // tạo 1 screen mới trong src/screen
-    // import vào đây
-    // có thể tạo components thì để trong src/components
     <ErrorBoundary>
       <NativeBaseProvider>
         <NavigationContainer>
-          <Stack.Navigator>
-            <Stack.Screen name="Home" component={ExampleScreen} />
-            <Stack.Screen name="Login" component={ExampleScreen} />
-            <Stack.Screen name="Signup" component={ExampleScreen} />
-          </Stack.Navigator>
+          <Drawer.Navigator>
+            <Drawer.Screen name="Example" component={ExampleScreen} />
+            <Drawer.Screen name="Advices" component={AdvicesScreen} />
+          </Drawer.Navigator>
         </NavigationContainer>
       </NativeBaseProvider>
     </ErrorBoundary>
-    // đây là màn hình ví dụ nha, tạo branch mới thì xóa tag này đi, chỉ để tag bạn làm vào đây
   );
 }
