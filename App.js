@@ -1,11 +1,11 @@
-import { StyleSheet, Text, View } from 'react-native';
-
-import ExampleScreen from './src/screens/ExampleScreen';
-import UI3Screen from './src/screens/UI3Screen';
+import { BottomNav } from "./src/components/BottomNav";
+import HomeScreen from "./src/screens/HomeScreen";
 
 export default function App() {
   return (
- 
-    <UI3Screen />
+    <>
+      <HomeScreen />
+      <BottomNav />
+    </>
   );
 }
