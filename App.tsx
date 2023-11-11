@@ -8,7 +8,7 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import AdvicesScreen from "./src/screens/AdvicesScreen";
 import StartScreen from "./src/screens/Start";
 import UI6Screen from "./src/screens/UI3Screen";
-import UI3Screen from "./src/screens/UI6";
+import UI3Screen from "./src/screens/SleepAnalytics";
 import UI5Screen from "./src/screens/UI5Screen";
 
 const Drawer = createDrawerNavigator();
