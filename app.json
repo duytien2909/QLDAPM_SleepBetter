@@ -15,8 +15,6 @@
     "ios": {
       "supportsTablet": true,
       "bundleIdentifier": "com.nguyenh8.SleepBetter"
-      "supportsTablet": true,
-      "bundleIdentifier": "com.nguyenh8.SleepBetter"
     },
     "android": {
       "adaptiveIcon": {
@@ -33,5 +31,5 @@
     "experiments": {
       "tsconfigPaths": true
     }
-  }
 }
+
