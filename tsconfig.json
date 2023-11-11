@@ -1,4 +1,9 @@
 {
-  "compilerOptions": {},
-  "extends": "expo/tsconfig.base"
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "jsx": "react",
+    "target": "es6"
+  },
+  "include": ["additional.d.ts", "**/*.ts", "**/*.tsx"]
 }
