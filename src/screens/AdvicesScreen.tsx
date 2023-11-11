@@ -1,5 +1,6 @@
 import { StyleSheet, Text, View } from "react-native";
-import AdviceItem from "../../components/AdviceItem";
+import React from "react";
+import AdviceItem from "../components/AdviceItem";
 // import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 // import { faHouse } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,7 +25,7 @@ const AdvicesScreen = () => {
       <Text style={styles.title}>Advices</Text>
       <View style={styles.adviceContainer}>
         {SAMPLE_ADVICES.map((advice, index) => (
-          <AdviceItem title={`${index + 1}. ${advice}`} />
+          <AdviceItem title={`${index + 1}. ${advice}`} key={index} />
         ))}
       </View>
     </View>

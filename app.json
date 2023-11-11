@@ -22,6 +22,8 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.nguyenh8.SleepBetter"
+      },
+      "package": "com.nguyenh8.SleepBetter"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -29,5 +31,5 @@
     "experiments": {
       "tsconfigPaths": true
     }
-  }
 }
+
