@@ -73,7 +73,7 @@ const RecordSleepScreen = () => {
         <BackButton />
         <VStack flex={1} alignItems={"center"} space={7}>
           <VStack alignItems={"center"}>
-            <Text color={"white"} fontSize={"base"}>
+            <Text color={"white"} fontSize={16}>
               Good night
             </Text>
             <Text color={"white"} fontSize={48} fontWeight={700}>
