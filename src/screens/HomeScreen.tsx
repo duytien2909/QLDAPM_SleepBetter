@@ -18,7 +18,7 @@ const HomeScreen = () => {
   const [isEnabled2, setIsEnabled2] = useState(false);
   const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
 
-  const daysOfWeek = ["Mon", "Tues", "Wednes", "Thurs", "Fri", "Sat", "Sun"];
+  const daysOfWeek = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
   const startDate = 23;
 
@@ -55,7 +55,8 @@ const HomeScreen = () => {
               fontSize: 24,
               color: "black",
               fontWeight: "bold",
-              alignSelf: "flex-start",
+              alignSelf: "center",
+              marginBottom: 8,
             }}
           >
             Your Slept Calendar
@@ -84,7 +85,7 @@ const HomeScreen = () => {
         >
           <View style={styles.ButtonContainer}>
             <View style={styles.circle}>
-              <Ionicons name="bed-outline" size={32} />
+              <Ionicons name="bed-outline" size={30} />
             </View>
             <Text style={{ fontSize: 20, color: "black" }}>Bed Time</Text>
             <Text style={{ fontSize: 12, color: "gray" }}>7H and 28Min</Text>
@@ -98,7 +99,7 @@ const HomeScreen = () => {
           </View>
           <View style={styles.ButtonContainer}>
             <View style={styles.circle}>
-              <Ionicons name="alarm-outline" size={32} />
+              <Ionicons name="alarm-outline" size={30} />
             </View>
             <Text style={{ fontSize: 20, color: "black" }}>Alarm</Text>
             <Text style={{ fontSize: 12, color: "gray" }}>7H and 28Min</Text>
@@ -113,9 +114,9 @@ const HomeScreen = () => {
         </View>
         <View
           style={{
-            width: "60%",
+            width: "80%",
             height: "20%",
-            justifyContent: "space-around",
+            justifyContent: "space-evenly",
             alignItems: "center",
             flexDirection: "row",
           }}
@@ -162,9 +163,7 @@ const styles = StyleSheet.create({
     height: "120%",
   },
   dayContainer: {
-    justifyContent: "center",
     alignItems: "center",
-
     marginHorizontal: 10,
   },
   dayText: {
@@ -180,15 +179,15 @@ const styles = StyleSheet.create({
   ButtonContainer: {
     backgroundColor: "white",
     borderRadius: 16,
-    height: "80%",
+    height: "90%",
     width: "40%",
     flexDirection: "column",
-    justifyContent: "space-around",
+    justifyContent: "space-evenly",
     padding: 10,
   },
   circle: {
-    width: 40,
-    height: 40,
+    width: 32,
+    height: 32,
     borderRadius: 32,
     backgroundColor: "lightblue",
     justifyContent: "center",
