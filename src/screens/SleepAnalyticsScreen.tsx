@@ -21,7 +21,7 @@ const SleepAnalyticsScreen = () => {
         <ProgressCircle radius={45} progress={75} />
       </ImageBackground>
       <View style={styles.overview}>
-        <Text style={styles.title}>Sleep Overview</Text>
+        <Text style={styles.overviewTitle}>Sleep Overview</Text>
         <View
           style={{
             flexDirection: "row",
@@ -32,22 +32,29 @@ const SleepAnalyticsScreen = () => {
           <View style={styles.box}>
             <Text style={styles.month}>Monthly Change</Text>
             <Text style={styles.textUp}>26%</Text>
-            <Image source={require("../../assets/UI_6/graph_up.png")} />
+            <Image
+              source={require("../../assets/UI_6/graph_up.png")}
+              style={{ width: 121, height: 54 }}
+            />
           </View>
           <View style={styles.box}>
             <Text style={styles.month}>Monthly Change</Text>
             <Text style={styles.textDown}>-30%</Text>
-            <Image source={require("../../assets/UI_6/graph_down.png")} />
+            <Image
+              source={require("../../assets/UI_6/graph_down.png")}
+              style={{ width: 121, height: 54 }}
+            />
           </View>
         </View>
-        <Text style={styles.title}>Weekly Overview</Text>
+        <Text style={styles.overviewTitle}>Weekly Overview</Text>
         <Image
           source={require("../../assets/UI_6/weekly_graph.png")}
           style={styles.weeklyGraph}
         />
       </View>
-
-      <BottomNav />
+      <View style={styles.bottom}>
+        <BottomNav />
+      </View>
     </View>
   );
 };
@@ -56,10 +63,12 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     width: "100%",
+    flex: 1,
+    overflow: "scroll",
   },
   header: {
     paddingHorizontal: 36,
-    paddingTop: 10,
+    paddingTop: 30,
   },
   title: {
     fontSize: 24,
@@ -88,6 +97,12 @@ const styles = StyleSheet.create({
   overview: {
     paddingHorizontal: 36,
   },
+  overviewTitle: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#000",
+    paddingVertical: 20,
+  },
   box: {
     width: 150,
     height: 130,
@@ -112,8 +127,14 @@ const styles = StyleSheet.create({
     color: "#FF5959",
   },
   weeklyGraph: {
-    width: "100%",
+    width: 380,
+    height: 200,
     resizeMode: "cover",
+  },
+  bottom: {
+    position: "sticky",
+    bottom: 0,
+    width: "100%",
   },
 });
 
