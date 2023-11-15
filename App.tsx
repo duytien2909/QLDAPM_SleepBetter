@@ -13,6 +13,7 @@ import SleepAnalyticsScreen from "./src/screens/SleepAnalyticsScreen";
 import SleepRecordStacks, {
   RecordSleepStackParamList,
 } from "./src/routes/StackNavigators/SleepRecordStacks/SleepRecordStacks";
+import Ionicons from "@expo/vector-icons/Ionicons";
 
 const theme = extendTheme({
   colors: {
@@ -56,18 +57,54 @@ export default function App() {
       <NativeBaseProvider theme={theme}>
         <NavigationContainer>
           <Tab.Navigator
-            screenOptions={{ headerShown: false }}
+            screenOptions={{
+              headerShown: false,
+              tabBarShowLabel: false,
+              tabBarStyle: {
+                backgroundColor: "#7750F5",
+              },
+            }}
             initialRouteName="Home"
           >
-            <Tab.Screen name="Home" component={HomeScreen} />
+            <Tab.Screen
+              name="Home"
+              component={HomeScreen}
+              options={{
+                tabBarIcon: ({ focused, size }) => (
+                  <Ionicons
+                    name="home-outline"
+                    size={size}
+                    color={focused ? "#BBBFD0" : "#000"}
+                  />
+                ),
+              }}
+            />
             <Tab.Screen
               name="RecordSleepStack"
               component={SleepRecordStacks}
-              options={{ tabBarStyle: { display: "none" } }}
+              options={{
+                tabBarStyle: { display: "none" },
+                tabBarIcon: ({ focused, size }) => (
+                  <Ionicons
+                    name="moon-outline"
+                    size={size}
+                    color={focused ? "#BBBFD0" : "#000"}
+                  />
+                ),
+              }}
             />
             <Tab.Screen
               name="SleepAnalytics"
               component={SleepAnalyticsScreen}
+              options={{
+                tabBarIcon: ({ focused, size }) => (
+                  <Ionicons
+                    name="podium-outline"
+                    size={size}
+                    color={focused ? "#BBBFD0" : "#000"}
+                  />
+                ),
+              }}
             />
           </Tab.Navigator>
         </NavigationContainer>

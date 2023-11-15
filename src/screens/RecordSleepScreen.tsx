@@ -1,15 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ImageBackground } from "react-native";
 import BackgroundUrl from "../../assets/background.png";
-import { Text, VStack, Image, Container, HStack, Button } from "native-base";
+import { Text, VStack, Container, HStack, Button } from "native-base";
 import BackButton from "../components/BackButton";
-import SleepIconUrl from "../../assets/sleep-icon.png";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { Audio } from "expo-av";
+import { Image } from "react-native";
+import SleepIconUrl from "../../assets/sleep-icon.png";
 
 const RecordSleepScreen = () => {
   const navigation = useNavigation();
@@ -96,15 +97,17 @@ const RecordSleepScreen = () => {
               backgroundWidth={4}
               rotation={0}
             />
-            {/* <Image
-              source={{ uri: SleepIconUrl }}
-              w={190}
-              h={190}
+            <Image
+              source={SleepIconUrl}
+              width={190}
+              height={190}
               alt="sleep icon"
-              position={"absolute"}
-              top={17}
-              left={17}
-            /> */}
+              style={{
+                position: "absolute",
+                top: 17,
+                left: 17,
+              }}
+            />
           </Container>
           <HStack
             bg={"rgba(157,145,255,.5)"}

@@ -46,8 +46,6 @@ const SleepAnalyticsScreen = () => {
           style={styles.weeklyGraph}
         />
       </View>
-
-      <BottomNav />
     </View>
   );
 };
@@ -56,6 +54,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     width: "100%",
+    flex: 1,
+    justifyContent: "center",
   },
   header: {
     paddingHorizontal: 36,
