@@ -18,7 +18,6 @@ jobs:
           name: Trigger build
           command: |
             npx eas-cli build -p android --profile preview
-            n
 
 workflows:
   build_app:
