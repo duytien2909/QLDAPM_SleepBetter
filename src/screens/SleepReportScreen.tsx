@@ -1,18 +1,9 @@
-import {
-  Button,
-  Center,
-  Column,
-  Container,
-  HStack,
-  Row,
-  Text,
-  VStack,
-} from "native-base";
+import { Button, Center, HStack, Text, VStack } from "native-base";
 import React from "react";
 import { ImageBackground } from "react-native";
 import BackgroundUrl from "../../assets/background.png";
 import dayjs from "dayjs";
-import { useNavigation } from "@react-navigation/native";
+import { StackActions, useNavigation } from "@react-navigation/native";
 
 const SleepReportScreen = () => {
   const navigation = useNavigation();
@@ -90,7 +81,13 @@ const SleepReportScreen = () => {
             </HStack>
           </VStack>
         </VStack>
-        <Button onPress={() => navigation.navigate("Home" as never)} mx={6}>
+        <Button
+          onPress={() => {
+            navigation.dispatch(StackActions.popToTop());
+            navigation.navigate("Home" as never);
+          }}
+          mx={6}
+        >
           <Text color={"white"} fontWeight={700} fontSize={18}>
             SKIP TO MAIN SCREEN
           </Text>

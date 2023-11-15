@@ -64,13 +64,13 @@ const RecordSleepScreen = () => {
     });
     const uri = recording?.getURI();
     console.log("Recording stopped and stored at", uri);
-    // navigation.navigate("SleepReport" as never);
+    navigation.navigate("SleepReport" as never);
   };
 
   return (
     <ImageBackground source={BackgroundUrl} style={{ flex: 1 }}>
       <VStack flex={1} color={"white"} justifyContent={"space-between"} p={9}>
-        <BackButton />
+        <BackButton onPress={() => recording?.stopAndUnloadAsync()} />
         <VStack flex={1} alignItems={"center"} space={7}>
           <VStack alignItems={"center"}>
             <Text color={"white"} fontSize={16}>
@@ -96,7 +96,7 @@ const RecordSleepScreen = () => {
               backgroundWidth={4}
               rotation={0}
             />
-            <Image
+            {/* <Image
               source={{ uri: SleepIconUrl }}
               w={190}
               h={190}
@@ -104,7 +104,7 @@ const RecordSleepScreen = () => {
               position={"absolute"}
               top={17}
               left={17}
-            />
+            /> */}
           </Container>
           <HStack
             bg={"rgba(157,145,255,.5)"}

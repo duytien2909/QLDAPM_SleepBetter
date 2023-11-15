@@ -57,7 +57,7 @@ export default function App() {
         <NavigationContainer>
           <Tab.Navigator
             screenOptions={{ headerShown: false }}
-            initialRouteName="RecordSleepStack"
+            initialRouteName="Home"
           >
             <Tab.Screen name="Home" component={HomeScreen} />
             <Tab.Screen

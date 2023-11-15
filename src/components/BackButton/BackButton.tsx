@@ -7,13 +7,20 @@ import { faClose } from "@fortawesome/free-solid-svg-icons";
 
 type BackButtonProps = {
   isCloseIcon?: boolean;
+  onPress?: () => void;
 };
 
-const BackButton = ({ isCloseIcon }: BackButtonProps) => {
+const BackButton = ({ isCloseIcon, onPress }: BackButtonProps) => {
   const navigation = useNavigation();
 
   return (
-    <Pressable onPress={() => navigation.goBack()}>
+    <Pressable
+      onPress={() => {
+        // onPress for cleanup functions
+        onPress?.();
+        navigation.goBack();
+      }}
+    >
       {isCloseIcon ? (
         <Container
           display="flex"
