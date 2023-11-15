@@ -22,9 +22,9 @@ const UI5Screen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.row}>
-        <a style={styles.homeIconContainer} href="/">
+        <Text style={styles.homeIconContainer}>
           <FontAwesomeIcon icon={faHouse} />
-        </a>
+        </Text>
         <Text style={styles.text}>Back</Text>
       </View>
       <View style={styles.row}>
