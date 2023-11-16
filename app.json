@@ -14,22 +14,25 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nguyenh8.SleepBetter"
+      "bundleIdentifier": "com.nguyenlecongquy.SleepBetter"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nguyenh8.SleepBetter"
+      "package": "com.nguyenlecongquy.SleepBetter"
     },
-    "package": "com.nguyenh8.SleepBetter"
-  },
-  "web": {
-    "favicon": "./assets/favicon.png"
-  },
-  "experiments": {
-    "tsconfigPaths": true
-  },
-  "plugins": ["expo-document-picker"]
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "a5c29065-84d5-439d-9231-6255ed14f437"
+      }
+    },
+    "experiments": {
+      "tsconfigPaths": true
+    }
+  }
 }

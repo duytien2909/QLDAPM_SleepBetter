@@ -1,11 +1,10 @@
-import { ExpoConfig } from "expo/config";
+import { ExpoConfig, ConfigContext } from 'expo/config';
 
-// In SDK 46 and lower, use the following import instead:
-// import { ExpoConfig } from '@expo/config-types';
-
-const config: ExpoConfig = {
-  name: "my-app",
-  slug: "my-app",
-};
-
-export default config;
+export default ({ config }: ConfigContext): ExpoConfig => ({
+  name: 'SleepBetter',
+  slug: 'SleepBetter',
+  version: config.version,
+  icon: config.icon,
+  extra: config.extra,
+  android: config.android
+});
