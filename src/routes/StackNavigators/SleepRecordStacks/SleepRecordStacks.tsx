@@ -15,7 +15,9 @@ export type RecordSleepStackParamList = {
     endTime: number;
     reminderDuration?: number;
   };
-  SleepReport: undefined;
+  SleepReport: {
+    recordUri: string;
+  };
 };
 
 const Stack = createNativeStackNavigator<RecordSleepStackParamList>();

@@ -3,10 +3,19 @@ import React from "react";
 import { ImageBackground } from "react-native";
 import BackgroundUrl from "../../assets/background.png";
 import dayjs from "dayjs";
-import { StackActions, useNavigation } from "@react-navigation/native";
+import {
+  StackActions,
+  useNavigation,
+  useRoute,
+} from "@react-navigation/native";
 
 const SleepReportScreen = () => {
   const navigation = useNavigation();
+  const {
+    params: { recordUri },
+  } = useRoute<any>();
+
+  console.log(recordUri);
 
   return (
     <ImageBackground

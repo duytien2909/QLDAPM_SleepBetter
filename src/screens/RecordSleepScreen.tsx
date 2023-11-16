@@ -1,7 +1,14 @@
 import React, { useEffect, useRef, useState } from "react";
 import { ImageBackground } from "react-native";
 import BackgroundUrl from "../../assets/background.png";
-import { Text, VStack, Container, HStack, Button } from "native-base";
+import {
+  Text,
+  VStack,
+  Container,
+  HStack,
+  Button,
+  Pressable,
+} from "native-base";
 import BackButton from "../components/BackButton";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
 import { faClock } from "@fortawesome/free-solid-svg-icons";
@@ -11,9 +18,10 @@ import { AnimatedCircularProgress } from "react-native-circular-progress";
 import { Audio } from "expo-av";
 import { Image } from "react-native";
 import SleepIconUrl from "../../assets/sleep-icon.png";
+import { ProfileScreenNavigationProp } from "../routes/StackNavigators/SleepRecordStacks/SleepRecordStacks";
 
 const RecordSleepScreen = () => {
-  const navigation = useNavigation();
+  const navigation = useNavigation<ProfileScreenNavigationProp>();
   // TODO: check any
   const {
     params: { startTime, endTime },
@@ -24,6 +32,7 @@ const RecordSleepScreen = () => {
     dayjs().format("HH:mm A")
   );
   const [timeUnix, setTimeUnix] = useState<number>(dayjs().unix());
+  const [devModeCount, setDevModeCount] = useState<number>(0);
   const interValRef = useRef<any>();
   useEffect(() => {
     interValRef.current = setInterval(() => {
@@ -65,7 +74,11 @@ const RecordSleepScreen = () => {
     });
     const uri = recording?.getURI();
     console.log("Recording stopped and stored at", uri);
-    navigation.navigate("SleepReport" as never);
+    if (!uri) {
+      navigation.navigate("Home");
+      return;
+    }
+    navigation.navigate("SleepReport", { recordUri: uri });
   };
 
   return (
@@ -119,7 +132,7 @@ const RecordSleepScreen = () => {
           >
             <FontAwesomeIcon icon={faClock} color="#fff" />
             <Text color={"white"} fontWeight={700} fontSize={20}>
-              04:00
+              {dayjs(endTime).format("HH:mm")}
             </Text>
           </HStack>
           {!!recording ? (
@@ -130,21 +143,37 @@ const RecordSleepScreen = () => {
             </Button>
           ) : (
             <>
-              <Text color={"white"} fontWeight={500} fontSize={20}>
+              {/* <Text color={"white"} fontWeight={500} fontSize={20}>
                 Select chilling music
-              </Text>
+              </Text> */}
               <Text color={"white"} fontWeight={500} fontSize={20}>
                 Timer to turn off music
               </Text>
             </>
           )}
         </VStack>
-        {!recording && (
+        {devModeCount >= 10 && <Text color={"white"}>ehe</Text>}
+        {!recording ? (
           <Button onPress={handleBeginSleep}>
             <Text color={"white"} fontWeight={700} fontSize={18}>
               START SLEEPING
             </Text>
           </Button>
+        ) : (
+          <Pressable
+            w={"full"}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            onPress={() => {
+              console.log(devModeCount);
+              setDevModeCount((prev) => prev + 1);
+            }}
+          >
+            <Text underline color={"gray.200"}>
+              Powered by Sleep Better Inc.
+            </Text>
+          </Pressable>
         )}
       </VStack>
     </ImageBackground>
