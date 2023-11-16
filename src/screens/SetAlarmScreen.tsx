@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Container,
@@ -28,6 +28,11 @@ const SetAlarmScreen = () => {
   const [sleepTime, setSleepTime] = useState<Dayjs>(dayjs());
   const [wakeUpTime, setWakeUpTime] = useState<Dayjs>(dayjs());
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
+
+  useEffect(() => {
+    setSleepTime(dayjs());
+    setWakeUpTime(dayjs());
+  }, []);
 
   const handleConfirmTime = (date: Date) => {
     console.log(date.toISOString());

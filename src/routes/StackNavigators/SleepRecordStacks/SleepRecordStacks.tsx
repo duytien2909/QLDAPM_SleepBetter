@@ -17,6 +17,8 @@ export type RecordSleepStackParamList = {
   };
   SleepReport: {
     recordUri: string;
+    startTime: number;
+    endTime: number;
   };
 };
 

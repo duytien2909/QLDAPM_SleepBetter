@@ -84,14 +84,23 @@ const RecordSleepScreen = () => {
       navigation.navigate("Home");
       return;
     }
-    navigation.navigate("SleepReport", { recordUri: uri });
+    navigation.navigate("SleepReport", {
+      recordUri: uri,
+      startTime,
+      endTime: dayjs().unix(),
+    });
   };
 
   const handleImportAudio = async () => {
+    await recording?.stopAndUnloadAsync();
     const files = await DocumentPicker.getDocumentAsync();
     const outputUri = files.assets?.[0].uri;
     if (!outputUri) return;
-    navigation.navigate("SleepReport", { recordUri: outputUri });
+    navigation.navigate("SleepReport", {
+      recordUri: outputUri,
+      startTime,
+      endTime: dayjs().unix(),
+    });
   };
 
   return (
