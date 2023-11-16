@@ -1,0 +1,14 @@
+buildscript {
+  ext {
+      minSdkVersion = 24
+      kotlinVersion = '1.5.0'
+      }
+
+  repositories {
+      google()
+      jcenter()
+  }
+
+  dependencies {
+     classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinVersion"
+  }

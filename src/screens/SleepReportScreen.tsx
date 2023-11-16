@@ -132,7 +132,7 @@ const SleepReportScreen = () => {
               <HStack flex={1} space={1}>
                 <Text fontWeight={600}>Sleep duration</Text>
                 <Text color={"#3828B7"} fontWeight={600}>
-                  {dayjs(endTime).diff(dayjs(startTime), "hours")}
+                  {dayjs(endTime).diff(dayjs(startTime), "hours")} h
                 </Text>
               </HStack>
               <HStack flex={1} space={1}>
