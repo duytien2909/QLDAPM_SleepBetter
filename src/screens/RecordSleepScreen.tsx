@@ -19,12 +19,18 @@ import { Audio } from "expo-av";
 import { Image } from "react-native";
 import SleepIconUrl from "../../assets/sleep-icon.png";
 import { ProfileScreenNavigationProp } from "../routes/StackNavigators/SleepRecordStacks/SleepRecordStacks";
+import utc from "dayjs/plugin/utc";
+import timezone from "dayjs/plugin/timezone";
+import * as DocumentPicker from "expo-document-picker";
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const RecordSleepScreen = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
   // TODO: check any
   const {
-    params: { startTime, endTime },
+    params: { startTime, endTime, reminderDuration = 60 * 15 },
   } = useRoute<any>();
 
   const [recording, setRecording] = useState<Audio.Recording>();
@@ -81,6 +87,13 @@ const RecordSleepScreen = () => {
     navigation.navigate("SleepReport", { recordUri: uri });
   };
 
+  const handleImportAudio = async () => {
+    const files = await DocumentPicker.getDocumentAsync();
+    const outputUri = files.assets?.[0].uri;
+    if (!outputUri) return;
+    navigation.navigate("SleepReport", { recordUri: outputUri });
+  };
+
   return (
     <ImageBackground source={BackgroundUrl} style={{ flex: 1 }}>
       <VStack flex={1} color={"white"} justifyContent={"space-between"} p={9}>
@@ -132,7 +145,7 @@ const RecordSleepScreen = () => {
           >
             <FontAwesomeIcon icon={faClock} color="#fff" />
             <Text color={"white"} fontWeight={700} fontSize={20}>
-              {dayjs(endTime).format("HH:mm")}
+              {dayjs((endTime + reminderDuration) * 1000).format("HH:mm")}
             </Text>
           </HStack>
           {!!recording ? (
@@ -152,7 +165,21 @@ const RecordSleepScreen = () => {
             </>
           )}
         </VStack>
-        {devModeCount >= 10 && <Text color={"white"}>ehe</Text>}
+        {devModeCount >= 10 && (
+          <Pressable
+            color={"white"}
+            w={"full"}
+            onPress={handleImportAudio}
+            display={"flex"}
+            justifyContent={"center"}
+            alignItems={"center"}
+            mb={3}
+          >
+            <Text color={"white"} fontWeight={600} fontSize={20}>
+              Press here to import audio file
+            </Text>
+          </Pressable>
+        )}
         {!recording ? (
           <Button onPress={handleBeginSleep}>
             <Text color={"white"} fontWeight={700} fontSize={18}>

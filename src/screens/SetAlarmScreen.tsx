@@ -25,14 +25,14 @@ import DateTimePicker from "react-native-modal-datetime-picker";
 const SetAlarmScreen = () => {
   const navigation = useNavigation<ProfileScreenNavigationProp>();
 
-  const [date, setDate] = useState<Date>(new Date());
   const [sleepTime, setSleepTime] = useState<Dayjs>(dayjs());
   const [wakeUpTime, setWakeUpTime] = useState<Dayjs>(dayjs());
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
   const handleConfirmTime = (date: Date) => {
-    setShowTimePicker(false);
+    console.log(date.toISOString());
     setWakeUpTime(dayjs(date));
+    setShowTimePicker(false);
   };
 
   const hourDiff = wakeUpTime.diff(sleepTime, "hours");

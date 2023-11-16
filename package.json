@@ -26,6 +26,7 @@
     "dayjs": "^1.11.10",
     "expo": "~49.0.15",
     "expo-av": "~13.4.1",
+    "expo-document-picker": "~11.5.4",
     "expo-status-bar": "~1.6.0",
     "native-base": "^3.4.28",
     "normalize-css-color": "^1.0.2",
