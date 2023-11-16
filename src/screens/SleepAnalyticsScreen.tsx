@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, ImageBackground, Image } from "react-native";
 import { BottomNav } from "../components/BottomNav";
 import ProgressCircle from "../components/ProgressCircle";
 
-const UI6Screen = () => {
+const SleepAnalyticsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.header}>
@@ -46,8 +46,6 @@ const UI6Screen = () => {
           style={styles.weeklyGraph}
         />
       </View>
-
-      <BottomNav />
     </View>
   );
 };
@@ -56,6 +54,8 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: "#fff",
     width: "100%",
+    flex: 1,
+    justifyContent: "center",
   },
   header: {
     paddingHorizontal: 36,
@@ -117,4 +117,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default UI6Screen;
+export default SleepAnalyticsScreen;
