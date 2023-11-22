@@ -1,6 +1,10 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
+import DateTimePickerModal from "react-native-modal-datetime-picker";
+import PushNotification from 'react-native-push-notification';
+import { useToast } from 'react-native-toast-notifications';
 import {
+  AppRegistry,
   View,
   StyleSheet,
   ImageBackground,
@@ -13,10 +17,66 @@ import {
 } from "react-native";
 
 const HomeScreen = () => {
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled((previousState) => !previousState);
-  const [isEnabled2, setIsEnabled2] = useState(false);
-  const toggleSwitch2 = () => setIsEnabled2((previousState) => !previousState);
+  const [isBedTime, setIsBedTime] = useState(false);
+  const toggleBedTimeSwitch = () =>
+    setIsBedTime((previousState) => !previousState);
+  const [isAlarm, setIsAlarm] = useState(false);
+
+  const toggleAlarmSwitch = () => {
+    setIsAlarm((previousState) => !previousState);
+    if (!isAlarm) {
+      const hours = selectedAlarmDate.getHours();
+      const minutes = selectedAlarmDate.getMinutes();
+  
+      const currentDate = new Date();
+
+      const nextAlarmDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes);
+  
+      PushNotification.localNotificationSchedule({
+        title: 'Daily Alarm',
+        message: 'Time to wake up!',
+        date: nextAlarmDate, 
+        repeatType: 'day', 
+      });
+    } else {
+      PushNotification.cancelAllLocalNotifications();
+    }
+  };
+  const [isAlarmDatePickerVisible, setAlarmDatePickerVisible] = useState(false);
+  const [selectedAlarmDate, setSelectedAlarmDate] = useState(new Date());
+
+  const [isBedTimeDatePickerVisible, setBedTimeDatePickerVisible] =
+    useState(false);
+  const [selectedBedTimeDate, setSelectedBedTimeDate] = useState(new Date());
+
+  const showAlarmDatePicker = () => setAlarmDatePickerVisible(true);
+  const hideAlarmDatePicker = () => setAlarmDatePickerVisible(false);
+  const handleAlarmDateConfirm = (date: any) => {
+    hideAlarmDatePicker();
+    setSelectedAlarmDate(date);
+    // Do something with the selected date (set Alarm)
+  };
+
+  const showBedTimeDatePicker = () => setBedTimeDatePickerVisible(true);
+  const hideBedTimeDatePicker = () => setBedTimeDatePickerVisible(false);
+  const handleBedTimeDateConfirm = (date: any) => {
+    hideBedTimeDatePicker();
+    setSelectedBedTimeDate(date);
+    scheduleBedTimeNotification(date);
+  };
+
+  const scheduleBedTimeNotification = (bedTime: any) => {
+    PushNotification.localNotificationSchedule({
+      title: "BedTime",
+      message: "Time to go to sleep!",
+      date: bedTime,
+    });
+  };
+  const formatTime = (date: any) => {
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    return `${hours}H and ${minutes}Min`;
+  };
 
   const daysOfWeek = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
 
@@ -53,7 +113,7 @@ const HomeScreen = () => {
           <Text
             style={{
               fontSize: 24,
-              color: "black",
+              color: "white",
               fontWeight: "bold",
               alignSelf: "center",
               marginBottom: 8,
@@ -88,12 +148,22 @@ const HomeScreen = () => {
               <Ionicons name="bed-outline" size={30} />
             </View>
             <Text style={{ fontSize: 20, color: "black" }}>Bed Time</Text>
-            <Text style={{ fontSize: 12, color: "gray" }}>7H and 28Min</Text>
+            <Pressable onPress={showBedTimeDatePicker}>
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {formatTime(selectedBedTimeDate)}
+              </Text>
+            </Pressable>
+            <DateTimePickerModal
+              isVisible={isBedTimeDatePickerVisible}
+              mode="time"
+              onConfirm={handleBedTimeDateConfirm}
+              onCancel={hideBedTimeDatePicker}
+            />
             <Switch
               trackColor={{ false: "gray", true: "#8F6FF5" }}
-              thumbColor={isEnabled ? "#f5dd4b" : "#8F6FF5"}
-              onValueChange={toggleSwitch}
-              value={isEnabled}
+              thumbColor={isBedTime ? "#f5dd4b" : "#8F6FF5"}
+              onValueChange={toggleBedTimeSwitch}
+              value={isBedTime}
               style={{ alignSelf: "flex-start" }}
             />
           </View>
@@ -102,12 +172,22 @@ const HomeScreen = () => {
               <Ionicons name="alarm-outline" size={30} />
             </View>
             <Text style={{ fontSize: 20, color: "black" }}>Alarm</Text>
-            <Text style={{ fontSize: 12, color: "gray" }}>7H and 28Min</Text>
+            <Pressable onPress={showAlarmDatePicker}>
+              <Text style={{ fontSize: 12, color: "black" }}>
+                {formatTime(selectedAlarmDate)}
+              </Text>
+            </Pressable>
+            <DateTimePickerModal
+              isVisible={isAlarmDatePickerVisible}
+              mode="time"
+              onConfirm={handleAlarmDateConfirm}
+              onCancel={hideAlarmDatePicker}
+            />
             <Switch
               trackColor={{ false: "gray", true: "#8F6FF5" }}
-              thumbColor={isEnabled2 ? "#f5dd4b" : "#8F6FF5"}
-              onValueChange={toggleSwitch2}
-              value={isEnabled2}
+              thumbColor={isAlarm ? "#f5dd4b" : "#8F6FF5"}
+              onValueChange={toggleAlarmSwitch}
+              value={isAlarm}
               style={{ alignSelf: "flex-start" }}
             />
           </View>
@@ -122,8 +202,8 @@ const HomeScreen = () => {
           }}
         >
           <View>
-            <Text style={{ fontSize: 16, color: "gray" }}>Have a problem?</Text>
-            <Text style={{ fontSize: 20, color: "black", fontWeight: "bold" }}>
+            <Text style={{ fontSize: 16, color: "lightgray" }}>Have a problem?</Text>
+            <Text style={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
               Sleeping?
             </Text>
             <Pressable>
@@ -169,12 +249,12 @@ const styles = StyleSheet.create({
   dayText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "black",
+    color: "white",
   },
   dateText: {
     fontSize: 16,
     marginTop: 5,
-    color: "black",
+    color: "white",
   },
   ButtonContainer: {
     backgroundColor: "white",
