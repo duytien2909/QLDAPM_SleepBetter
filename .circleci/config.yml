@@ -16,6 +16,7 @@ jobs:
           command: npm ci
       - run:
           name: Trigger build
+          no_output_timeout: 30m
           command: |
             npx eas-cli build -p android --profile preview --non-interactive
 
