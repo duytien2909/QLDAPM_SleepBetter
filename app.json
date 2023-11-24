@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "SleepBetter",
-    "slug": "SleepBetter",
+    "slug": "sleepbetter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -14,17 +14,22 @@
     "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.nguyenlecongquy.SleepBetter"
+      "bundleIdentifier": "com.qlda_nhom2.SleepBetter"
     },
     "android": {
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.nguyenlecongquy.SleepBetter"
+      "package": "com.qlda_nhom2.SleepBetter"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7c2f396c-db3c-4b75-b9f9-11ce24e35f71"
+      }
     },
     "experiments": {
       "tsconfigPaths": true
