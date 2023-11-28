@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import PushNotification from 'react-native-push-notification';
-import { useToast } from 'react-native-toast-notifications';
+import PushNotification from "react-native-push-notification";
+import { useToast } from "react-native-toast-notifications";
 import {
   AppRegistry,
   View,
@@ -15,6 +15,10 @@ import {
   Image,
   Pressable,
 } from "react-native";
+import {
+  background,
+  color,
+} from "native-base/lib/typescript/theme/styled-system";
 
 const HomeScreen = () => {
   const [isBedTime, setIsBedTime] = useState(false);
@@ -27,16 +31,22 @@ const HomeScreen = () => {
     if (!isAlarm) {
       const hours = selectedAlarmDate.getHours();
       const minutes = selectedAlarmDate.getMinutes();
-  
+
       const currentDate = new Date();
 
-      const nextAlarmDate = new Date(currentDate.getFullYear(), currentDate.getMonth(), currentDate.getDate(), hours, minutes);
-  
+      const nextAlarmDate = new Date(
+        currentDate.getFullYear(),
+        currentDate.getMonth(),
+        currentDate.getDate(),
+        hours,
+        minutes
+      );
+
       PushNotification.localNotificationSchedule({
-        title: 'Daily Alarm',
-        message: 'Time to wake up!',
-        date: nextAlarmDate, 
-        repeatType: 'day', 
+        title: "Daily Alarm",
+        message: "Time to wake up!",
+        date: nextAlarmDate,
+        repeatType: "day",
       });
     } else {
       PushNotification.cancelAllLocalNotifications();
@@ -78,12 +88,47 @@ const HomeScreen = () => {
     return `${hours}H and ${minutes}Min`;
   };
 
-  const daysOfWeek = ["Mon", "Tues", "Wed", "Thurs", "Fri", "Sat", "Sun"];
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
-  const startDate = 23;
+  const currentDate = new Date();
+  const currentDayOfWeek = currentDate.getDay();
+  const daysInMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  ).getDate();
+  const startDate = 1 - (currentDate.getDay() - 1);
+
+  const generateDays = () => {
+    const days = [];
+    for (let i = 0; i < daysInMonth; i++) {
+      const day = startDate + i;
+      days.push(day);
+    }
+    return days;
+  };
 
   return (
     <View style={styles.page}>
+      <View style={styles.appBar}>
+        <View
+          style={{ justifyContent: "center", marginLeft: 16, marginTop: 24 }}
+        >
+          <Text style={{ fontSize: 16, color: "gray" }}>Maya Ramon</Text>
+          <Text style={{ fontSize: 20, color: "black", fontWeight: "bold" }}>
+            Good Morning
+          </Text>
+          <Text></Text>
+        </View>
+        <View style={styles.avatarContainer}>
+          <Image
+            source={{
+              uri: "https://media.istockphoto.com/id/1300845620/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-ph%E1%BA%B3ng-b%E1%BB%8B-c%C3%B4-l%E1%BA%ADp-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-minh-h%E1%BB%8Da-vector.jpg?s=2048x2048&w=is&k=20&c=qftX2hvWZbn5r2FwrFqHo05ZEkRIAQlVxMsIMsetTK0=",
+            }}
+            style={styles.avatarImage}
+          />
+        </View>
+      </View>
       <ImageBackground
         style={styles.background}
         source={require("../../assets/background.png")}
@@ -91,8 +136,8 @@ const HomeScreen = () => {
         <View
           style={{
             backgroundColor: "#8F6FF5",
-            width: "80%",
-            height: "20%",
+            width: "70%",
+            height: "16%",
             borderRadius: 12,
             justifyContent: "center",
             alignItems: "center",
@@ -124,12 +169,14 @@ const HomeScreen = () => {
           <View style={{ flexDirection: "row" }}>
             <FlatList
               horizontal
-              data={daysOfWeek}
-              keyExtractor={(item, index) => index.toString()}
-              renderItem={({ item, index }) => (
+              data={generateDays()}
+              keyExtractor={(item) => item.toString()}
+              renderItem={({ item }) => (
                 <View style={styles.dayContainer}>
-                  <Text style={styles.dayText}>{item}</Text>
-                  <Text style={styles.dateText}>{startDate + index}</Text>
+                  <Text style={styles.dayText}>
+                    {daysOfWeek[(item + currentDayOfWeek - 1) % 7]}
+                  </Text>
+                  <Text style={styles.dateText}>{item}</Text>
                 </View>
               )}
             />
@@ -202,7 +249,9 @@ const HomeScreen = () => {
           }}
         >
           <View>
-            <Text style={{ fontSize: 16, color: "lightgray" }}>Have a problem?</Text>
+            <Text style={{ fontSize: 16, color: "lightgray" }}>
+              Have a problem?
+            </Text>
             <Text style={{ fontSize: 20, color: "white", fontWeight: "bold" }}>
               Sleeping?
             </Text>
@@ -240,19 +289,38 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: "120%",
+    height: "100%",
+  },
+  appBar: {
+    height: "15%",
+    width: "100%",
+    marginBottom: "3%",
+    backgroundColor: "white",
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+  },
+  avatarContainer: {
+    width: 100,
+    height: 100,
+    borderRadius: 50,
+    overflow: "hidden",
+  },
+  avatarImage: {
+    width: "100%",
+    height: "100%",
   },
   dayContainer: {
     alignItems: "center",
     marginHorizontal: 10,
   },
   dayText: {
-    fontSize: 20,
+    fontSize: 16,
     fontWeight: "bold",
     color: "white",
   },
   dateText: {
-    fontSize: 16,
+    fontSize: 10,
     marginTop: 5,
     color: "white",
   },
