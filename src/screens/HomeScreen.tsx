@@ -1,8 +1,8 @@
 import { Ionicons } from "@expo/vector-icons";
 import React, { useState } from "react";
 import DateTimePickerModal from "react-native-modal-datetime-picker";
-import PushNotification from "react-native-push-notification";
-import { useToast } from "react-native-toast-notifications";
+// import PushNotification from "react-native-push-notification";
+
 import {
   AppRegistry,
   View,
@@ -42,14 +42,14 @@ const HomeScreen = () => {
         minutes
       );
 
-      PushNotification.localNotificationSchedule({
-        title: "Daily Alarm",
-        message: "Time to wake up!",
-        date: nextAlarmDate,
-        repeatType: "day",
-      });
+      // PushNotification.localNotificationSchedule({
+      //   title: "Daily Alarm",
+      //   message: "Time to wake up!",
+      //   date: nextAlarmDate,
+      //   repeatType: "day",
+      // });
     } else {
-      PushNotification.cancelAllLocalNotifications();
+      // PushNotification.cancelAllLocalNotifications();
     }
   };
   const [isAlarmDatePickerVisible, setAlarmDatePickerVisible] = useState(false);
@@ -76,11 +76,11 @@ const HomeScreen = () => {
   };
 
   const scheduleBedTimeNotification = (bedTime: any) => {
-    PushNotification.localNotificationSchedule({
-      title: "BedTime",
-      message: "Time to go to sleep!",
-      date: bedTime,
-    });
+    // PushNotification.localNotificationSchedule({
+    //   title: "BedTime",
+    //   message: "Time to go to sleep!",
+    //   date: bedTime,
+    // });
   };
   const formatTime = (date: any) => {
     const hours = date.getHours();
