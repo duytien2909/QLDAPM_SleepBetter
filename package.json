@@ -25,6 +25,7 @@
     "@svgr/webpack": "^8.1.0",
     "buffer": "^6.0.3",
     "dayjs": "^1.11.10",
+    "eas-cli": "^5.9.1",
     "expo": "~49.0.15",
     "expo-av": "~13.4.1",
     "expo-document-picker": "~11.5.4",

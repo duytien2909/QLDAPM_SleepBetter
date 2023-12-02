@@ -7,8 +7,9 @@ import {
   faBowlFood,
   faUserGroup,
 } from "@fortawesome/free-solid-svg-icons";
-import { ChevronRightIcon } from "native-base";
-// import { faHouse } from "@fortawesome/free-solid-svg-icons";
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+import AdvicesStack, { AdviceScreenNavigationProp, AdviceStackParamList } from "../routes/StackNavigators/AdviceStacks/AdviceStacks";
 
 //TODO: Replace this later
 const SAMPLE_ADVICES = [
@@ -19,6 +20,9 @@ const SAMPLE_ADVICES = [
 ];
 
 const AdvicesScreen = () => {
+
+  const navigation = useNavigation<AdviceScreenNavigationProp>();
+
   return (
     <View style={styles.container}>
       {/* TODO: Replace this as main navbar later since we didn't sync screens yet */}
@@ -146,7 +150,7 @@ const AdvicesScreen = () => {
             <FontAwesomeIcon icon={faArrowRight} />
           </View>
         </Pressable>
-        <Pressable style={styles.buttonContainer}>
+        <Pressable style={styles.buttonContainer} >
           <View style={styles.buttonIcon}>
             <FontAwesomeIcon
               style={{ color: "white" }}
@@ -214,6 +218,7 @@ const AdvicesScreen = () => {
           </View>
         </View>
       </View>
+
     </View>
   );
 };

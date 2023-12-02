@@ -14,6 +14,8 @@ import SleepRecordStacks, {
   RecordSleepStackParamList,
 } from "./src/routes/StackNavigators/SleepRecordStacks/SleepRecordStacks";
 import Ionicons from "@expo/vector-icons/Ionicons";
+import AdvicesScreen from "./src/screens/AdvicesScreen";
+import AdviceScreen from "./src/screens/AdviceScreen";
 
 const theme = extendTheme({
   colors: {
@@ -47,6 +49,7 @@ export type RootTabParamList = {
   Home: undefined;
   RecordSleepStack: NavigatorScreenParams<RecordSleepStackParamList>;
   SleepAnalytics: undefined;
+  Advice: undefined;
 };
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
@@ -100,6 +103,19 @@ export default function App() {
                 tabBarIcon: ({ focused, size }) => (
                   <Ionicons
                     name="podium-outline"
+                    size={size}
+                    color={focused ? "#BBBFD0" : "#000"}
+                  />
+                ),
+              }}
+            />
+            <Tab.Screen
+              name="Advice"
+              component={AdviceScreen}
+              options={{
+                tabBarIcon: ({ focused, size }) => (
+                  <Ionicons
+                    name="bulb-outline"
                     size={size}
                     color={focused ? "#BBBFD0" : "#000"}
                   />
