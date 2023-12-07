@@ -64,7 +64,6 @@ const AdvicesScreen = () => {
               style={{
                 width: "auto",
                 color: "rgba(255, 255, 255, 1)",
-                fontFamily: "Mulish",
                 fontSize: 16,
                 fontStyle: "normal",
                 fontWeight: "800",
@@ -75,7 +74,6 @@ const AdvicesScreen = () => {
             <Text
               style={{
                 color: "rgba(255, 255, 255, 1)",
-                fontFamily: "Mulish",
                 fontSize: 14,
                 fontStyle: "normal",
                 fontWeight: "500",
@@ -101,7 +99,6 @@ const AdvicesScreen = () => {
               <Text
                 style={{
                   color: "rgba(255, 255, 255, 1)",
-                  fontFamily: "Mulish",
                   fontSize: 12,
                   fontWeight: "700",
                 }}
@@ -110,7 +107,6 @@ const AdvicesScreen = () => {
               </Text>
             </View>
           </View>
-          <View></View>
         </View>
       </View>
       <View style={styles.navigatorContainer}>
@@ -123,7 +119,7 @@ const AdvicesScreen = () => {
             marginLeft: 16,
           }}
         >{`Let us support you!!!`}</Text>
-        <Pressable style={styles.buttonContainer}>
+        <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("Advice")}>
           <View style={styles.buttonIcon}>
             <FontAwesomeIcon
               style={{ color: "white" }}
@@ -150,7 +146,7 @@ const AdvicesScreen = () => {
             <FontAwesomeIcon icon={faArrowRight} />
           </View>
         </Pressable>
-        <Pressable style={styles.buttonContainer} >
+        <Pressable style={styles.buttonContainer} onPress={() => navigation.navigate("MealPlan")}>
           <View style={styles.buttonIcon}>
             <FontAwesomeIcon
               style={{ color: "white" }}
@@ -181,17 +177,16 @@ const AdvicesScreen = () => {
         <Text
           style={{
             color: "rgba(86, 86, 86, 1)",
-            fontFamily: "Mulish",
             fontSize: 12,
             fontStyle: "normal",
             fontWeight: "700",
             margin: 8,
+            flexWrap: 'wrap'
           }}
         >{`Daily Check In`}</Text>
         <Text
           style={{
             color: "rgba(36, 36, 36, 1)",
-            fontFamily: "Mulish",
             fontSize: 16,
             fontStyle: "normal",
             fontWeight: "700",
@@ -254,7 +249,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     marginBottom: 8,
-    width: "75%",
+    width: "95%",
   },
   main_contentContainer: {
     width: "100%",
@@ -273,7 +268,7 @@ const styles = StyleSheet.create({
     borderColor: "black",
     borderRadius: 30,
     marginBottom: 8,
-    width: "75%",
+    width: "95%",
   },
   buttonContainer: {
     flexDirection: "row",
@@ -297,7 +292,7 @@ const styles = StyleSheet.create({
     marginBottom: 8,
     flexDirection: "column",
     justifyContent: "space-between",
-    width: "75%",
+    width: "95%",
     backgroundColor: "white",
     borderColor: "black",
     borderRadius: 16,
@@ -307,7 +302,6 @@ const styles = StyleSheet.create({
   },
   emojiText: {
     color: "rgba(36, 36, 36, 1)",
-    fontFamily: "Mulish",
     fontSize: 14,
     fontStyle: "normal",
     fontWeight: "600",
@@ -321,6 +315,7 @@ const styles = StyleSheet.create({
     height: 42,
     justifyContent: "space-between",
     alignItems: "center",
+    padding: 10,
   },
 });
 

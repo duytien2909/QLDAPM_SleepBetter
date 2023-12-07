@@ -17,7 +17,7 @@ const AdviceItem = ({ title }: { title: string }) => {
       >
         {title}
       </Text>
-      {isExpanded && <Text style={styles.adviceContent}>{ADVICE_CONTENT}</Text>}
+      {isExpanded && <Text style={[styles.adviceContent, {flex: 1}]}>{ADVICE_CONTENT}</Text>}
     </View>
   );
 };
@@ -37,10 +37,13 @@ const styles = StyleSheet.create({
       width: 4,
     },
     borderWidth: 1,
+    flexDirection: "column", // Stack children vertically
+
   },
   adviceTitle: {
     fontSize: 20,
     fontWeight: "500",
+    
   },
   adviceContent: {
     marginTop: 10,
