@@ -69,7 +69,7 @@ const SleepReportScreen = () => {
               {dayjs().format("DD/MM/YYYY")}
             </Text>
           </HStack>
-          {recordInfo && (
+          {!!recordInfo && (
             <LineChart
               data={{
                 labels: recordInfo.map((_, index) => "") || [],
