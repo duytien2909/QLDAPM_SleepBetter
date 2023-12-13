@@ -17,7 +17,7 @@ const TimerMusicScreen = ({
 }: {
   isOpen: boolean;
   onClose: () => void;
-  onSelectDuration: (duration: number) => void;
+  onSelectDuration: (duration: number | null) => void;
 }) => {
   const [selectedHours, setSelectedHours] = useState(0);
   const [selectedMinutes, setSelectedMinutes] = useState(0);
@@ -51,13 +51,16 @@ const TimerMusicScreen = ({
 
   return (
     <Modal isOpen={isOpen} onClose={onClose} size="lg">
-      <Modal.Content>
-        <Modal.CloseButton />
-        <Modal.Header>Select Duration</Modal.Header>
-        <Modal.Body>
+      <Modal.Content bg={"#3a3266"}>
+        <Modal.Header bg={"#3a3266"} borderBottomWidth={0}>
+          <Text color={"#fff"} fontSize={"xl"}>
+            Timer to turn off music
+          </Text>
+        </Modal.Header>
+        <Modal.Body bg={"#3a3266"}>
           <HStack space={6} justifyContent="center">
             <VStack>
-              <Text fontSize="md" bold>
+              <Text fontSize="2xl" bold color={"#fff"}>
                 Hours
               </Text>
               <ScrollView
@@ -67,13 +70,15 @@ const TimerMusicScreen = ({
               >
                 {hours.map((hour) => (
                   <Box key={hour} p={2} height={50} justifyContent="center">
-                    <Text textAlign="center">{hour}</Text>
+                    <Text textAlign="center" fontSize="xl" color={"#fff"}>
+                      {hour}
+                    </Text>
                   </Box>
                 ))}
               </ScrollView>
             </VStack>
             <VStack>
-              <Text fontSize="md" bold>
+              <Text fontSize="2xl" bold color={"#fff"}>
                 Minutes
               </Text>
               <ScrollView
@@ -83,21 +88,38 @@ const TimerMusicScreen = ({
               >
                 {minutes.map((minute) => (
                   <Box key={minute} p={2} height={50} justifyContent="center">
-                    <Text textAlign="center">{minute}</Text>
+                    <Text textAlign="center" fontSize="xl" color={"#fff"}>
+                      {minute}
+                    </Text>
                   </Box>
                 ))}
               </ScrollView>
             </VStack>
           </HStack>
         </Modal.Body>
-        <Modal.Footer>
-          <Button
-            variant="solid"
-            colorScheme="primary"
-            onPress={handleSelectDuration}
-          >
-            Set Timer
-          </Button>
+        <Modal.Footer bg={"#3a3266"} borderTopWidth={0}>
+          <Button.Group space={2} width="100%">
+            <Button
+              flex={1}
+              variant="outline"
+              borderColor="#6151e5"
+              borderRadius={12}
+              onPress={onClose}
+              _text={{ color: "#fff" }}
+            >
+              Cancel
+            </Button>
+            <Button
+              flex={1}
+              variant="solid"
+              bg={"#349053"}
+              borderRadius={12}
+              _text={{ color: "#fff" }}
+              onPress={handleSelectDuration}
+            >
+              Save
+            </Button>
+          </Button.Group>
         </Modal.Footer>
       </Modal.Content>
     </Modal>

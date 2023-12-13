@@ -76,14 +76,10 @@ const musicList = [
 const SelectMusicScreen = ({
   isOpen,
   onClose,
-  shouldStartTimer,
-  startTimer,
   timerFinished,
 }: {
   isOpen: boolean;
   onClose: () => void;
-  shouldStartTimer: boolean;
-  startTimer: () => void;
   timerFinished: boolean;
 }) => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -94,8 +90,9 @@ const SelectMusicScreen = ({
     uri: string;
     imageUri: string;
   } | null>(null);
-  const [sound, setSound] = useState<Audio.Sound | null>(null);
 
+  const [sound, setSound] = useState<Audio.Sound | null>(null);
+  const [isMusicPlaying, setIsMusicPlaying] = useState(false);
   const handleSearch = (text: string) => {
     setSearchQuery(text);
     const filteredMusic = musicList.filter((item) =>
@@ -113,9 +110,22 @@ const SelectMusicScreen = ({
     const { sound: newSound } = await Audio.Sound.createAsync(item.uri);
     setSound(newSound);
     await newSound.playAsync();
+
     setPlayingMusic(item);
-    if (shouldStartTimer) {
-      startTimer();
+    setIsMusicPlaying(true);
+  };
+
+  const play = async () => {
+    if (sound) {
+      await sound.playAsync();
+      setIsMusicPlaying(true);
+    }
+  };
+
+  const pause = async () => {
+    if (sound) {
+      await sound.pauseAsync();
+      setIsMusicPlaying(false);
     }
   };
 
@@ -124,6 +134,7 @@ const SelectMusicScreen = ({
       await sound.stopAsync();
     }
     setPlayingMusic(null);
+    setIsMusicPlaying(false);
   };
 
   useEffect(() => {
@@ -140,38 +151,30 @@ const SelectMusicScreen = ({
       }}
       size="full"
       _backdrop={{
-        //   _dark: { bg: "coolGray.800", opacity: 0.8 },
-        _light: { bg: "warmGray.50", opacity: 0.4 },
+        bg: "#04020d",
+        opacity: 0.6,
       }}
     >
-      <Modal.Content
-        maxWidth="400px"
-        maxHeight="full"
-        bg="transparent"
-        _dark={{ bg: "coolGray.900" }}
-        _light={{ bg: "warmGray.50" }}
-      >
-        <Modal.CloseButton />
-        <Modal.Header
-          _dark={{ bg: "coolGray.900" }}
-          _light={{ bg: "warmGray.50" }}
-        >
-          <Text>Select Music</Text>
-        </Modal.Header>
-        <Modal.Body
-          _dark={{ bg: "coolGray.900" }}
-          _light={{ bg: "warmGray.50" }}
-        >
-          <VStack space={4}>
+      <Modal.Content maxWidth="400px" maxHeight="full" bg="transparent">
+        <Modal.CloseButton marginTop={5} />
+
+        <Modal.Body>
+          <VStack space={4} marginTop={12} paddingX={3}>
             <Input
               placeholder="Search music"
               width="100%"
-              borderRadius="4"
+              borderRadius="25"
+              bg="#727272"
               py="3"
               px="1"
               fontSize="14"
               InputLeftElement={
-                <Icon as={<Feather name="search" />} size="md" m="2" />
+                <Icon
+                  as={<Feather name="search" />}
+                  size="md"
+                  m="2"
+                  color="#fff"
+                />
               }
               onChangeText={handleSearch}
               value={searchQuery}
@@ -193,7 +196,7 @@ const SelectMusicScreen = ({
                         alt={item.title}
                         size="sm"
                       />
-                      <Text color="coolGray.800" bold>
+                      <Text color="#fff" bold>
                         {item.title}
                       </Text>
                     </HStack>
@@ -205,14 +208,43 @@ const SelectMusicScreen = ({
           </VStack>
         </Modal.Body>
         {playingMusic && (
-          <Box p={5} bg="primary.500">
-            <HStack justifyContent="space-between" alignItems="center">
-              <Text color="white" fontSize="md">
-                Now Playing: {playingMusic.title}
-              </Text>
-              <Button onPress={stopMusic} variant="unstyled">
-                <AntDesign name="closecircle" size={24} color="white" />
-              </Button>
+          <Box p={5} bg="#304FFE" rounded="md" shadow={2}>
+            <HStack
+              justifyContent="space-between"
+              alignItems="center"
+              space={3}
+            >
+              <HStack alignItems="center" space={3}>
+                <Image
+                  source={playingMusic.imageUri}
+                  alt={playingMusic.title}
+                  size="md"
+                  borderRadius="full"
+                />
+                <VStack>
+                  <Text color="white" bold fontSize="lg">
+                    {playingMusic.title}
+                  </Text>
+                  <Text color="gray.200" fontSize="sm">
+                    Artist Name
+                  </Text>
+                </VStack>
+              </HStack>
+              <HStack space={2}>
+                <Button
+                  onPress={isMusicPlaying ? pause : play}
+                  variant="unstyled"
+                >
+                  <Feather
+                    name={isMusicPlaying ? "pause-circle" : "play-circle"}
+                    size={30}
+                    color="white"
+                  />
+                </Button>
+                <Button onPress={stopMusic} variant="unstyled">
+                  <AntDesign name="closecircle" size={24} color="white" />
+                </Button>
+              </HStack>
             </HStack>
           </Box>
         )}
