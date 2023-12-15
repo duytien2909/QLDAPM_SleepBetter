@@ -8,15 +8,28 @@ import {
   VStack,
   View,
 } from "native-base";
-import React from "react";
+import React, { useRef, useState } from "react";
 import FacebookIcon from "../../assets/LoginScreen/icons/facebook.png";
 import GoogleIcon from "../../assets/LoginScreen/icons/google.png";
 import { useNavigation } from "@react-navigation/native";
+import { useAppDispatch } from "../redux/store";
+import { loginWithEmailPassword } from "../redux/authentication/authentication.action";
 
 const LoginScreen = () => {
   const nagivation = useNavigation();
+  const dispatch = useAppDispatch();
 
-  const handleLogin = () => {};
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleLogin = () => {
+    dispatch(
+      loginWithEmailPassword({
+        email,
+        password,
+      })
+    );
+  };
 
   return (
     <View flex={1} bg={"#251751"} py={8} px={10}>
@@ -68,13 +81,25 @@ const LoginScreen = () => {
               <Text fontWeight={"bold"} color={"white"} fontSize={16}>
                 Email or your phone number
               </Text>
-              <Input placeholder="example@gmail.com" w="100%" bg={"white"} />
+              <Input
+                placeholder="example@gmail.com"
+                w="100%"
+                bg={"white"}
+                value={email}
+                onChangeText={setEmail}
+              />
             </VStack>
             <VStack space={4}>
               <Text fontWeight={"bold"} color={"white"} fontSize={16}>
                 Password
               </Text>
-              <Input placeholder="Password" w="100%" bg={"white"} />
+              <Input
+                placeholder="Password"
+                w="100%"
+                bg={"white"}
+                value={password}
+                onChangeText={setPassword}
+              />
             </VStack>
             <Text fontWeight={"bold"} color={"white"} fontSize={15}>
               Forgot Password?

@@ -8,12 +8,19 @@ import {
   VStack,
   View,
 } from "native-base";
-import React from "react";
+import React, { useState } from "react";
+import { signUpWithEmailPassword } from "../services/firebase/firestore/authentication";
 
 const SignUpScreen = () => {
   const nagivation = useNavigation();
 
-  const handleSignUp = () => {};
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const handleSignUp = () => {
+    signUpWithEmailPassword(email, password);
+    nagivation.navigate("Login" as never);
+  };
 
   return (
     <View flex={1} bg={"#251751"} py={8} px={10}>
@@ -38,13 +45,25 @@ const SignUpScreen = () => {
               <Text fontWeight={"bold"} color={"white"} fontSize={16}>
                 Email or your phone number
               </Text>
-              <Input placeholder="example@gmail.com" w="100%" bg={"white"} />
+              <Input
+                placeholder="example@gmail.com"
+                w="100%"
+                bg={"white"}
+                value={email}
+                onChangeText={setEmail}
+              />
             </VStack>
             <VStack space={4}>
               <Text fontWeight={"bold"} color={"white"} fontSize={16}>
                 Password
               </Text>
-              <Input placeholder="Password" w="100%" bg={"white"} />
+              <Input
+                placeholder="Password"
+                w="100%"
+                bg={"white"}
+                value={password}
+                onChangeText={setPassword}
+              />
             </VStack>
             <Text fontWeight={"bold"} color={"white"} fontSize={15}>
               Forgot Password?
@@ -61,7 +80,7 @@ const SignUpScreen = () => {
             <Text color={"white"} fontWeight={"bold"} fontSize={12}>
               ALREADY HAVE AN ACCOUNT?
             </Text>
-            <Pressable onPress={() => nagivation.navigate("Login" as never)}>
+            <Pressable onPress={handleSignUp}>
               <Text color={"#9D91FF"} fontWeight={"bold"} fontSize={12}>
                 LOG IN
               </Text>

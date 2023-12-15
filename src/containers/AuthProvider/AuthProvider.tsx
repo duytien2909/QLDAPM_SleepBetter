@@ -1,5 +1,5 @@
 import React from "react";
-import { useAppSelector } from "../../../redux/store";
+import { useAppSelector } from "../../redux/store";
 
 type AuthProviderProps = {
   authComponent: () => JSX.Element;
@@ -10,7 +10,9 @@ export default function AuthProvider({
   authComponent: AuthComponent,
   unAuthComponent: UnAuthComponent,
 }: AuthProviderProps) {
-  const { isAuth } = useAppSelector((state) => state.authentication);
+  const {
+    data: { user },
+  } = useAppSelector((state) => state.authentication);
 
-  return <>{isAuth ? <AuthComponent /> : <UnAuthComponent />}</>;
+  return <>{user ? <AuthComponent /> : <UnAuthComponent />}</>;
 }

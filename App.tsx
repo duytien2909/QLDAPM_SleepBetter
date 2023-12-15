@@ -7,8 +7,8 @@ import AuthProvider from "./src/containers/AuthProvider";
 import ErrorBoundary from "./src/containers/ErrorBoundary";
 import AuthStack from "./src/routes/StackNavigators/AuthStack";
 import UserTab from "./src/routes/TabNavigators/UserTab/UserTab";
-import store from "./redux/store";
 import { Provider } from "react-redux";
+import store from "./src/redux/store";
 
 const theme = extendTheme({
   colors: {

@@ -31,7 +31,10 @@ export type ProfileScreenNavigationProp = CompositeNavigationProp<
 
 const SleepRecordStacks = () => {
   return (
-    <Stack.Navigator initialRouteName="SetAlarm">
+    <Stack.Navigator
+      initialRouteName="SetAlarm"
+      screenOptions={{ headerShown: false }}
+    >
       <Stack.Screen name="SetAlarm" component={SetAlarmScreen} />
       <Stack.Screen name="RecordSleep" component={RecordSleepScreen} />
       <Stack.Screen name="SleepReport" component={SleepReportScreen} />
