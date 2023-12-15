@@ -1,5 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
-import { ImageBackground } from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { ImageBackground, TouchableOpacity } from "react-native";
 import BackgroundUrl from "../../assets/background.png";
 import {
   Text,
@@ -8,10 +8,13 @@ import {
   HStack,
   Button,
   Pressable,
+  Badge,
+  View,
+  Box,
 } from "native-base";
 import BackButton from "../components/BackButton";
 import { FontAwesomeIcon } from "@fortawesome/react-native-fontawesome";
-import { faClock } from "@fortawesome/free-solid-svg-icons";
+import { faClock, faMusic } from "@fortawesome/free-solid-svg-icons";
 import dayjs from "dayjs";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { AnimatedCircularProgress } from "react-native-circular-progress";
@@ -22,6 +25,8 @@ import { ProfileScreenNavigationProp } from "../routes/StackNavigators/SleepReco
 import utc from "dayjs/plugin/utc";
 import timezone from "dayjs/plugin/timezone";
 import * as DocumentPicker from "expo-document-picker";
+import SelectMusicScreen from "../components/Music/SelectMusic";
+import TimerMusicScreen from "../components/Music/TimerMusic";
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -40,6 +45,7 @@ const RecordSleepScreen = () => {
   const [timeUnix, setTimeUnix] = useState<number>(dayjs().unix());
   const [devModeCount, setDevModeCount] = useState<number>(0);
   const interValRef = useRef<any>();
+
   useEffect(() => {
     interValRef.current = setInterval(() => {
       setTimeString(dayjs().format("HH:mm A"));
@@ -65,6 +71,7 @@ const RecordSleepScreen = () => {
         Audio.RecordingOptionsPresets.HIGH_QUALITY
       );
       setRecording(recording);
+      startTimer();
       console.log("Recording started");
     } catch (err) {
       console.error("Failed to start recording", err);
@@ -74,6 +81,7 @@ const RecordSleepScreen = () => {
   const handleCompleteSleep = async () => {
     console.log("Stopping recording..");
     setRecording(undefined);
+    setTimerFinished(true);
     await recording?.stopAndUnloadAsync();
     await Audio.setAudioModeAsync({
       allowsRecordingIOS: false,
@@ -101,6 +109,54 @@ const RecordSleepScreen = () => {
       startTime,
       endTime: dayjs().unix(),
     });
+  };
+
+  const [isSelectMusicOpen, setIsSelectMusicOpen] = useState(false);
+  const [isSelectTimerOpen, setIsSelectTimerOpen] = useState(false);
+
+  const [remainingTime, setRemainingTime] = useState<number | null>(null);
+  const [timerDuration, setTimerDuration] = useState<number | null>(0);
+  const [timerFinished, setTimerFinished] = useState(false);
+
+  useEffect(() => {
+    let interval: NodeJS.Timeout | null = null;
+
+    if (remainingTime !== null) {
+      interval = setInterval(() => {
+        setRemainingTime((currentRemainingTime) => {
+          if (currentRemainingTime && currentRemainingTime > 0) {
+            return currentRemainingTime - 1;
+          } else {
+            clearInterval(interval);
+            setTimerDuration(0);
+            setTimerFinished(true);
+            return null;
+          }
+        });
+      }, 1000);
+    }
+
+    return () => {
+      if (interval) clearInterval(interval);
+    };
+  }, [remainingTime]);
+
+  const startTimer = useCallback(() => {
+    if (timerDuration) {
+      setRemainingTime(timerDuration * 60);
+    }
+  }, [timerDuration]);
+
+  const handleSelectDuration = useCallback((duration: number | null) => {
+    setTimerDuration(duration);
+    setIsSelectTimerOpen(false);
+  }, []);
+
+  const formatRemainingTime = (time: number | null) => {
+    if (time === null) return null;
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+    return `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   };
 
   return (
@@ -157,22 +213,67 @@ const RecordSleepScreen = () => {
               {dayjs((endTime + reminderDuration) * 1000).format("HH:mm")}
             </Text>
           </HStack>
-          {!!recording ? (
-            <Button onPress={handleCompleteSleep} w={"full"}>
-              <Text color={"white"} fontWeight={700} fontSize={18}>
-                DONE SLEEPING
-              </Text>
-            </Button>
-          ) : (
-            <>
-              {/* <Text color={"white"} fontWeight={500} fontSize={20}>
-                Select chilling music
-              </Text> */}
-              <Text color={"white"} fontWeight={500} fontSize={20}>
-                Timer to turn off music
-              </Text>
-            </>
-          )}
+          <VStack alignItems={"flex-start"} space={5}>
+            <Container>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => setIsSelectMusicOpen(true)}
+              >
+                <FontAwesomeIcon icon={faMusic} color="#0019ff" size={25} />
+                <Text
+                  color={"white"}
+                  fontWeight={500}
+                  fontSize={20}
+                  marginLeft={5}
+                >
+                  Open Music Selector
+                </Text>
+              </TouchableOpacity>
+              <SelectMusicScreen
+                isOpen={isSelectMusicOpen}
+                onClose={() => setIsSelectMusicOpen(false)}
+                timerFinished={timerFinished}
+              />
+            </Container>
+            <VStack>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => setIsSelectTimerOpen(true)}
+              >
+                <FontAwesomeIcon icon={faClock} color={"#90b4e8"} size={25} />
+                <Text
+                  color={"white"}
+                  fontWeight={500}
+                  fontSize={20}
+                  marginLeft={5}
+                >
+                  Timer to turn off music
+                </Text>
+                <TimerMusicScreen
+                  isOpen={isSelectTimerOpen}
+                  onClose={() => setIsSelectTimerOpen(false)}
+                  onSelectDuration={handleSelectDuration}
+                />
+              </TouchableOpacity>
+              {remainingTime ? (
+                <Text italic color={"white"} fontSize={16} textAlign={"right"}>
+                  Time Set: {formatRemainingTime(remainingTime)}
+                </Text>
+              ) : (
+                <Text italic color={"white"} fontSize={16} textAlign={"right"}>
+                  Time Set: {formatRemainingTime(timerDuration)}
+                </Text>
+              )}
+            </VStack>
+          </VStack>
         </VStack>
         {devModeCount >= 10 && (
           <Pressable
@@ -196,20 +297,27 @@ const RecordSleepScreen = () => {
             </Text>
           </Button>
         ) : (
-          <Pressable
-            w={"full"}
-            display={"flex"}
-            justifyContent={"center"}
-            alignItems={"center"}
-            onPress={() => {
-              console.log(devModeCount);
-              setDevModeCount((prev) => prev + 1);
-            }}
-          >
-            <Text underline color={"gray.200"}>
-              Powered by Sleep Better Inc.
-            </Text>
-          </Pressable>
+          <VStack space={3}>
+            <Button onPress={handleCompleteSleep} w={"full"}>
+              <Text color={"white"} fontWeight={700} fontSize={18}>
+                DONE SLEEPING
+              </Text>
+            </Button>
+            <Pressable
+              w={"full"}
+              display={"flex"}
+              justifyContent={"center"}
+              alignItems={"center"}
+              onPress={() => {
+                console.log(devModeCount);
+                setDevModeCount((prev) => prev + 1);
+              }}
+            >
+              <Text underline color={"gray.200"}>
+                Powered by Sleep Better Inc.
+              </Text>
+            </Pressable>
+          </VStack>
         )}
       </VStack>
     </ImageBackground>
