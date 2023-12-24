@@ -127,7 +127,7 @@ const RecordSleepScreen = () => {
           if (currentRemainingTime && currentRemainingTime > 0) {
             return currentRemainingTime - 1;
           } else {
-            clearInterval(interval);
+            clearInterval(interval as any);
             setTimerDuration(0);
             setTimerFinished(true);
             return null;

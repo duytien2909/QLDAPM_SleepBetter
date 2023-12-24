@@ -88,7 +88,7 @@ const SelectMusicScreen = ({
     id: string;
     title: string;
     uri: string;
-    imageUri: string;
+    imageUri: object;
   } | null>(null);
 
   const [sound, setSound] = useState<Audio.Sound | null>(null);
