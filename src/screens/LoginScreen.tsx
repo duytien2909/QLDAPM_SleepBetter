@@ -7,6 +7,7 @@ import {
   Text,
   VStack,
   View,
+  useToast,
 } from "native-base";
 import React, { useRef, useState } from "react";
 import FacebookIcon from "../../assets/LoginScreen/icons/facebook.png";
@@ -16,19 +17,32 @@ import { useAppDispatch } from "../redux/store";
 import { loginWithEmailPassword } from "../redux/authentication/authentication.action";
 
 const LoginScreen = () => {
+  const toast = useToast();
   const nagivation = useNavigation();
   const dispatch = useAppDispatch();
 
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
 
-  const handleLogin = () => {
-    dispatch(
-      loginWithEmailPassword({
-        email,
-        password,
-      })
-    );
+  const handleLogin = async () => {
+    try {
+      const loginResponse = await dispatch(
+        loginWithEmailPassword({
+          email,
+          password,
+        })
+      ).unwrap();
+      if (loginResponse) {
+        toast.show({
+          title: "Login Success",
+        });
+      }
+    }
+    catch (error) {
+      toast.show({
+        title: "Login Failed",
+      });
+    }
   };
 
   return (
@@ -85,6 +99,7 @@ const LoginScreen = () => {
                 placeholder="example@gmail.com"
                 w="100%"
                 bg={"white"}
+                _focus={{bg: "white"}}
                 value={email}
                 onChangeText={setEmail}
               />
@@ -97,6 +112,7 @@ const LoginScreen = () => {
                 placeholder="Password"
                 w="100%"
                 bg={"white"}
+                _focus={{bg: "white"}}
                 value={password}
                 onChangeText={setPassword}
               />

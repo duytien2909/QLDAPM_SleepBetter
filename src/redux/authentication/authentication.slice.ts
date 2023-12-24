@@ -24,7 +24,18 @@ const initialState: AuthenticationState = {
 const profileSlice = createSlice({
   name: "authentication",
   initialState,
-  reducers: {},
+  reducers: {
+    logOut: (state) => {
+      return {
+        data: {
+          user: null,
+        },
+        status: {
+          error: null,
+        }
+      };
+    }  
+  },
   extraReducers: (builder) => {
     builder.addCase(loginWithEmailPassword.pending, (state) => ({
       ...state,
@@ -55,5 +66,7 @@ const profileSlice = createSlice({
     });
   },
 });
+
+export const { logOut } = profileSlice.actions;
 
 export default profileSlice.reducer;
