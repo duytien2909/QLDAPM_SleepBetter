@@ -1,19 +1,14 @@
 import "react-native-gesture-handler";
 
-import React from "react";
+import { NavigationContainer } from "@react-navigation/native";
 import { NativeBaseProvider, extendTheme } from "native-base";
-import {
-  NavigationContainer,
-  NavigatorScreenParams,
-} from "@react-navigation/native";
+import React from "react";
+import AuthProvider from "./src/containers/AuthProvider";
 import ErrorBoundary from "./src/containers/ErrorBoundary";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import HomeScreen from "./src/screens/HomeScreen";
-import SleepAnalyticsScreen from "./src/screens/SleepAnalyticsScreen";
-import SleepRecordStacks, {
-  RecordSleepStackParamList,
-} from "./src/routes/StackNavigators/SleepRecordStacks/SleepRecordStacks";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import AuthStack from "./src/routes/StackNavigators/AuthStack";
+import UserTab from "./src/routes/TabNavigators/UserTab/UserTab";
+import { Provider } from "react-redux";
+import store from "./src/redux/store";
 
 const theme = extendTheme({
   colors: {
@@ -43,72 +38,16 @@ const theme = extendTheme({
   },
 });
 
-export type RootTabParamList = {
-  Home: undefined;
-  RecordSleepStack: NavigatorScreenParams<RecordSleepStackParamList>;
-  SleepAnalytics: undefined;
-};
-
-const Tab = createBottomTabNavigator<RootTabParamList>();
-
 export default function App() {
   return (
     <ErrorBoundary>
-      <NativeBaseProvider theme={theme}>
-        <NavigationContainer>
-          <Tab.Navigator
-            screenOptions={{
-              headerShown: false,
-              tabBarShowLabel: false,
-              tabBarStyle: {
-                backgroundColor: "#7750F5",
-              },
-            }}
-            initialRouteName="Home"
-          >
-            <Tab.Screen
-              name="Home"
-              component={HomeScreen}
-              options={{
-                tabBarIcon: ({ focused, size }) => (
-                  <Ionicons
-                    name="home-outline"
-                    size={size}
-                    color={focused ? "#BBBFD0" : "#000"}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="RecordSleepStack"
-              component={SleepRecordStacks}
-              options={{
-                tabBarStyle: { display: "none" },
-                tabBarIcon: ({ focused, size }) => (
-                  <Ionicons
-                    name="moon-outline"
-                    size={size}
-                    color={focused ? "#BBBFD0" : "#000"}
-                  />
-                ),
-              }}
-            />
-            <Tab.Screen
-              name="SleepAnalytics"
-              component={SleepAnalyticsScreen}
-              options={{
-                tabBarIcon: ({ focused, size }) => (
-                  <Ionicons
-                    name="podium-outline"
-                    size={size}
-                    color={focused ? "#BBBFD0" : "#000"}
-                  />
-                ),
-              }}
-            />
-          </Tab.Navigator>
-        </NavigationContainer>
-      </NativeBaseProvider>
+      <Provider store={store}>
+        <NativeBaseProvider theme={theme}>
+          <NavigationContainer>
+            <AuthProvider authComponent={UserTab} unAuthComponent={AuthStack} />
+          </NavigationContainer>
+        </NativeBaseProvider>
+      </Provider>
     </ErrorBoundary>
   );
 }

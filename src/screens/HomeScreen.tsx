@@ -4,23 +4,21 @@ import DateTimePickerModal from "react-native-modal-datetime-picker";
 // import PushNotification from "react-native-push-notification";
 
 import {
-  AppRegistry,
-  View,
-  StyleSheet,
-  ImageBackground,
-  Text,
-  ScrollView,
   FlatList,
-  Switch,
   Image,
+  ImageBackground,
   Pressable,
+  StyleSheet,
+  Switch,
+  Text,
+  View
 } from "react-native";
-import {
-  background,
-  color,
-} from "native-base/lib/typescript/theme/styled-system";
+import { useAppDispatch } from "../redux/store";
+import { logOut } from "../redux/authentication/authentication.slice";
 
 const HomeScreen = () => {
+  const dispatch = useAppDispatch();
+
   const [isBedTime, setIsBedTime] = useState(false);
   const toggleBedTimeSwitch = () =>
     setIsBedTime((previousState) => !previousState);
@@ -120,14 +118,16 @@ const HomeScreen = () => {
           </Text>
           <Text></Text>
         </View>
-        <View style={styles.avatarContainer}>
-          <Image
-            source={{
-              uri: "https://media.istockphoto.com/id/1300845620/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-ph%E1%BA%B3ng-b%E1%BB%8B-c%C3%B4-l%E1%BA%ADp-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-minh-h%E1%BB%8Da-vector.jpg?s=2048x2048&w=is&k=20&c=qftX2hvWZbn5r2FwrFqHo05ZEkRIAQlVxMsIMsetTK0=",
-            }}
-            style={styles.avatarImage}
-          />
-        </View>
+        <Pressable onPress={() => dispatch(logOut())}>
+          <View style={styles.avatarContainer}>
+            <Image
+              source={{
+                uri: "https://media.istockphoto.com/id/1300845620/vi/vec-to/bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-ph%E1%BA%B3ng-b%E1%BB%8B-c%C3%B4-l%E1%BA%ADp-tr%C3%AAn-n%E1%BB%81n-tr%E1%BA%AFng-bi%E1%BB%83u-t%C6%B0%E1%BB%A3ng-ng%C6%B0%E1%BB%9Di-d%C3%B9ng-minh-h%E1%BB%8Da-vector.jpg?s=2048x2048&w=is&k=20&c=qftX2hvWZbn5r2FwrFqHo05ZEkRIAQlVxMsIMsetTK0=",
+              }}
+              style={styles.avatarImage}
+            />
+          </View>
+        </Pressable>
       </View>
       <ImageBackground
         style={styles.background}

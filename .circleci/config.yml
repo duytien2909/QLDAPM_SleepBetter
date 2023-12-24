@@ -13,7 +13,14 @@ jobs:
       - checkout
       - run:
           name: Install dependencies
-          command: npm ci
+          command: |
+            if [ -e yarn.lock ]; then
+            yarn install --frozen-lockfile
+            elif [ -e package-lock.json ]; then
+            npm ci
+            else
+            npm i
+            fi
       - run:
           name: Trigger build
           no_output_timeout: 30m

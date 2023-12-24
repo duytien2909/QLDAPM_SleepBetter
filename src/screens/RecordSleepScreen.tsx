@@ -274,6 +274,67 @@ const RecordSleepScreen = () => {
               )}
             </VStack>
           </VStack>
+          <VStack alignItems={"flex-start"} space={5}>
+            <Container>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => setIsSelectMusicOpen(true)}
+              >
+                <FontAwesomeIcon icon={faMusic} color="#0019ff" size={25} />
+                <Text
+                  color={"white"}
+                  fontWeight={500}
+                  fontSize={20}
+                  marginLeft={5}
+                >
+                  Open Music Selector
+                </Text>
+              </TouchableOpacity>
+              <SelectMusicScreen
+                isOpen={isSelectMusicOpen}
+                onClose={() => setIsSelectMusicOpen(false)}
+                timerFinished={timerFinished}
+              />
+            </Container>
+            <VStack>
+              <TouchableOpacity
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+                onPress={() => setIsSelectTimerOpen(true)}
+              >
+                <FontAwesomeIcon icon={faClock} color={"#90b4e8"} size={25} />
+                <Text
+                  color={"white"}
+                  fontWeight={500}
+                  fontSize={20}
+                  marginLeft={5}
+                >
+                  Timer to turn off music
+                </Text>
+                <TimerMusicScreen
+                  isOpen={isSelectTimerOpen}
+                  onClose={() => setIsSelectTimerOpen(false)}
+                  onSelectDuration={handleSelectDuration}
+                />
+              </TouchableOpacity>
+              {remainingTime ? (
+                <Text italic color={"white"} fontSize={16} textAlign={"right"}>
+                  Time Set: {formatRemainingTime(remainingTime)}
+                </Text>
+              ) : (
+                <Text italic color={"white"} fontSize={16} textAlign={"right"}>
+                  Time Set: {formatRemainingTime(timerDuration)}
+                </Text>
+              )}
+            </VStack>
+          </VStack>
         </VStack>
         {devModeCount >= 10 && (
           <Pressable
