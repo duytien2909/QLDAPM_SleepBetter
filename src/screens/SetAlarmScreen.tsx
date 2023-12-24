@@ -32,8 +32,15 @@ const SetAlarmScreen = () => {
   const [showTimePicker, setShowTimePicker] = useState<boolean>(false);
 
   useEffect(() => {
-    setSleepTime(dayjs());
-    setWakeUpTime(dayjs());
+    const interval = setInterval(() => {
+      setSleepTime(dayjs());
+      setWakeUpTime(dayjs());
+      // Code to update here
+    }, 60000); // 1 minute in milliseconds
+
+    return () => {
+      clearInterval(interval);
+    };
   }, []);
 
   const handleConfirmTime = (date: Date) => {

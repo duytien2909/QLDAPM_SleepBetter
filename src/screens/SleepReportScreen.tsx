@@ -12,6 +12,7 @@ import { filterData } from "../services/AudioVisualizer";
 import { Buffer } from "buffer";
 import _ from "lodash";
 import { LineChart } from "react-native-chart-kit";
+import { storeSleepData } from "../services/firebase/firestore/sleepData";
 
 const SleepReportScreen = () => {
   const navigation = useNavigation();
@@ -29,6 +30,7 @@ const SleepReportScreen = () => {
       setRecordBuffer(responseBuffer);
       const audioBuffer = Buffer.from(responseBuffer);
       const exportedData = filterData(audioBuffer as any);
+      storeSleepData({arrayBuffer: exportedData, startTime, endTime})
       setRecordInfo(exportedData);
     };
 
