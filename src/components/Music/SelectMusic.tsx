@@ -154,10 +154,10 @@ const SelectMusicScreen = ({
         bg: "#04020d",
         opacity: 0.6,
       }}
+      testID="modal-testid"
     >
       <Modal.Content maxWidth="400px" maxHeight="full" bg="transparent">
-        <Modal.CloseButton marginTop={5} />
-
+        <Modal.CloseButton marginTop={5} testID="close-button" />
         <Modal.Body>
           <VStack space={4} marginTop={12} paddingX={3}>
             <Input
@@ -237,6 +237,7 @@ const SelectMusicScreen = ({
                 >
                   <Feather
                     name={isMusicPlaying ? "pause-circle" : "play-circle"}
+                    testID={isMusicPlaying ? "pause-button" : "play-button"}
                     size={30}
                     color="white"
                   />

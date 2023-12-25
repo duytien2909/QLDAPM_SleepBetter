@@ -12,6 +12,9 @@ module.exports = {
     "^.+\\.tsx?$": "ts-jest",
     "^.+\\.[jt]sx?$": "babel-jest",
   },
+  moduleNameMapper: {
+    "\\.(mp3|jpg|jpeg|png|gif)$": "<rootDir>/src/__mocks__/fileMocks.js",
+  },
   transformIgnorePatterns: [
     "node_modules/(?!(react-native|@expo/vector-icons|@react-native|@react-native-community|@react-navigation|react-native-circular-progress|expo-av|expo-modules-core|dayjs|expo-document-picker|@fortawesome/react-native-fontawesome|@react-native/js-polyfills)/)",
   ],

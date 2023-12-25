@@ -102,7 +102,7 @@ describe("<TimerMusicScreen />", () => {
     expect(mockOnClose).toHaveBeenCalled();
     expect(mockOnSelectDuration).not.toHaveBeenCalled();
   });
-  it('should handle boundary conditions for hour and minute selection', () => {
+  it("should handle boundary conditions for hour and minute selection", () => {
     const mockOnSelectDuration = jest.fn();
     const { getByTestId, getByText } = render(
       <NativeBaseProvider initialWindowMetrics={inset}>
@@ -113,18 +113,27 @@ describe("<TimerMusicScreen />", () => {
         />
       </NativeBaseProvider>
     );
-  
+
     // Mock scroll events for maximum hour (23) and minute (59)
     const hourScrollEventMax = { nativeEvent: { contentOffset: { y: 1150 } } }; // 23 hours
-    const minuteScrollEventMax = { nativeEvent: { contentOffset: { y: 2950 } } }; // 59 minutes
-  
+    const minuteScrollEventMax = {
+      nativeEvent: { contentOffset: { y: 2950 } },
+    }; // 59 minutes
+
     // Simulate scrolling to maximum values
-    fireEvent(getByTestId('hourScrollView'), 'onMomentumScrollEnd', hourScrollEventMax);
-    fireEvent(getByTestId('minuteScrollView'), 'onMomentumScrollEnd', minuteScrollEventMax);
-  
-    fireEvent.press(getByText('Save'));
-  
+    fireEvent(
+      getByTestId("hourScrollView"),
+      "onMomentumScrollEnd",
+      hourScrollEventMax
+    );
+    fireEvent(
+      getByTestId("minuteScrollView"),
+      "onMomentumScrollEnd",
+      minuteScrollEventMax
+    );
+
+    fireEvent.press(getByText("Save"));
+
     expect(mockOnSelectDuration).toHaveBeenCalledWith(1439); // 23 hours * 60 + 59 minutes
   });
-  
 });
