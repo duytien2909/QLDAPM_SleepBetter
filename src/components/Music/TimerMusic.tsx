@@ -67,6 +67,7 @@ const TimerMusicScreen = ({
                 ref={hourScrollRef}
                 height={50}
                 onMomentumScrollEnd={handleSelectHourOnScroll}
+                testID="hourScrollView"
               >
                 {hours.map((hour) => (
                   <Box key={hour} p={2} height={50} justifyContent="center">
@@ -85,6 +86,7 @@ const TimerMusicScreen = ({
                 ref={minuteScrollRef}
                 height={50}
                 onMomentumScrollEnd={handleSelectMinuteOnScroll}
+                testID="minuteScrollView"
               >
                 {minutes.map((minute) => (
                   <Box key={minute} p={2} height={50} justifyContent="center">
